@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="forecastDay"
+            type="com.ahoy.weatherapp.model.Forecastday" />
+
+        <variable
+            name="viewModel"
+            type="com.ahoy.weatherapp.viewmodel.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:padding="@dimen/_8sdp"
+        android:background="@drawable/forecast_background">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/day_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bindDay="@{forecastDay.date}"
+            tools:text="Monday"
+            style="@style/MediumBoldBlackTextStyle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@{forecastDay.date}"
+            tools:text="12 Aug, 2021"
+            style="@style/SmallNormalGreyTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/day_text_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/weather_status_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:tint="@color/sky_blue_dark"
+            app:loadImage="@{forecastDay.day.condition.icon}"
+            tools:src="@drawable/ic_baseline_cloud_queue_48"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/temperature_text_view" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/temperature_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/temp_format(forecastDay.day.avgtempC.toString())}"
+            tools:text="32 C"
+            style="@style/LargeBoldBlackTextStyle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

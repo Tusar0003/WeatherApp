@@ -1,4 +1,4 @@
-package com.ahoy.weatherapp.utils
+package com.ahoy.weatherapp.api
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

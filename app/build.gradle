@@ -47,6 +47,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+    implementation "androidx.fragment:fragment-ktx:1.5.2"
+
     // Hilt
     implementation 'com.google.dagger:hilt-android:2.44'
     kapt 'com.google.dagger:hilt-compiler:2.44'
@@ -59,10 +61,6 @@ dependencies {
     testImplementation 'com.google.dagger:hilt-android-testing:2.44'
     kaptTest 'com.google.dagger:hilt-compiler:2.44'
 
-    // Architectural Components
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-
     // App Navigation dependencies
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
 
@@ -73,6 +71,7 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -81,7 +80,9 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
 
     // Moshi for Json Parsing
-    implementation 'com.squareup.moshi:moshi:1.13.0'
+    def moshiVersion = "1.13.0"
+    implementation("com.squareup.moshi:moshi-kotlin:$moshiVersion")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
 
     // Multiple screen size lib
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
@@ -105,4 +106,7 @@ dependencies {
 
     // Mock Web Server
     implementation("com.squareup.okhttp3:mockwebserver:4.9.1")
+
+    // Location
+    implementation("com.google.android.gms:play-services-location:20.0.0")
 }

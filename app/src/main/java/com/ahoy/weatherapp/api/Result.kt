@@ -1,4 +1,4 @@
-package com.ahoy.weatherapp.utils
+package com.ahoy.weatherapp.api
 
 data class Result<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {

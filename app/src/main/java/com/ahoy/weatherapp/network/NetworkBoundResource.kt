@@ -3,11 +3,11 @@ package com.ahoy.weatherapp.network
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import com.ahoy.weatherapp.di.IoDispatcher
-import com.ahoy.weatherapp.utils.ApiEmptyResponse
-import com.ahoy.weatherapp.utils.ApiErrorResponse
-import com.ahoy.weatherapp.utils.ApiResponse
-import com.ahoy.weatherapp.utils.ApiSuccessResponse
-import com.ahoy.weatherapp.utils.Result
+import com.ahoy.weatherapp.api.ApiEmptyResponse
+import com.ahoy.weatherapp.api.ApiErrorResponse
+import com.ahoy.weatherapp.api.ApiResponse
+import com.ahoy.weatherapp.api.ApiSuccessResponse
+import com.ahoy.weatherapp.api.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow

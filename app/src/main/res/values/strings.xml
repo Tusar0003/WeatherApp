@@ -2,4 +2,28 @@
     <string name="app_name">WeatherApp</string>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="today">Today</string>
+    <string name="today_s_weather">Today\'s Weather</string>
+    <string name="celsius">\u2103</string>
+    <string name="fahrenheit">\u2109</string>
+    <string name="please_wait">Please wait</string>
+    <string name="location_rationale_text">
+        The app needs access to your location.\nPlease allow permission
+    </string>
+    <string name="location_dont_ask_text">
+        The app needs access to your location.\nPlease allow permission from the settings menu.
+    </string>
+    <string name="denied_toast">Access is denied.</string>
+    <string name="gps_not_available_text">GPS service is not available.</string>
+    <string name="location_tracking_failed_text">Location tracking failed.</string>
+    <string name="location_tracking_success_text">Location captured successfully.</string>
+
+    <string name="temp_format">%1$s \u2103</string>
+    <string name="feels_like_format">Feels like %1$s \u2103</string>
+    <string name="wind_format">Wind %1$s km</string>
+    <string name="humidity_format">Humidity %1$s km</string>
 </resources>

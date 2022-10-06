@@ -1,5 +1,6 @@
 package com.ahoy.weatherapp.utils
 
+import com.ahoy.weatherapp.api.ApiResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

@@ -1,4 +1,4 @@
-package com.ahoy.weatherapp.utils
+package com.ahoy.weatherapp.api
 
 import com.squareup.moshi.Moshi
 import retrofit2.Response

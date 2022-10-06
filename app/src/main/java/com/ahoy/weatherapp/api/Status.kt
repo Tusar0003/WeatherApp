@@ -1,4 +1,4 @@
-package com.ahoy.weatherapp.utils
+package com.ahoy.weatherapp.api
 
 enum class Status {
     SUCCESS,
