@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:toolbarStyle" tools:targetApi="l">@style/MyAppTheme.Toolbar</item>
+        <item name="toolbarStyle">@style/MyAppTheme.Toolbar</item>
     </style>
 
     <style name="Theme.App.SplashLauncher" parent="Theme.SplashScreen">
@@ -19,6 +21,18 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/app_icon</item>
         <item name="postSplashScreenTheme">@style/Theme.WeatherApp</item>
     </style>
+
+    <style name="MyAppTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <!-- Add custom stuff here -->
+        <item name="android:background" tools:targetApi="l">@color/sky_blue</item>
+        <item name="background">@color/sky_blue</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="fontFamily">@font/aller_rg</item>
+    </style>
+
+    <style name="MyAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ExtraLargeBoldWhiteTextStyle">
         <item name="android:fontFamily">@font/aller_bd</item>

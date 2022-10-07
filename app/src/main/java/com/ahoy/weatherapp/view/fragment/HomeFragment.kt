@@ -70,10 +70,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                     )
                 }
             }
+
+            launch {
+                binding.toolbar.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.menu_search -> {
+                            navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+                        }
+                    }
+
+                    return@setOnMenuItemClickListener true
+                }
+            }
         }
     }
 
-    //location implementation
+    // Location implementation
     private val locationPermission = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions  ->
@@ -144,8 +156,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     override fun onLocationFound(location: Location) {
         binding.progressBar.visibility = View.GONE
-        viewModel.currentLatLng.tryEmit("${location.longitude}, ${location.latitude}")
-        requireContext().toastLong(R.string.location_tracking_success_text)
+        viewModel.setCurrentLatLng("${location.longitude}, ${location.latitude}")
+//        requireContext().toastLong(R.string.location_tracking_success_text)
     }
 
     private val gpsSettingLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->

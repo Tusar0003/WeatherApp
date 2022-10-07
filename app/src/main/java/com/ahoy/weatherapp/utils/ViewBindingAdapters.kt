@@ -7,7 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.ahoy.weatherapp.R
+import com.ahoy.weatherapp.model.Search
 import com.bumptech.glide.Glide
+import com.google.android.material.imageview.ShapeableImageView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,6 +36,15 @@ fun loadImage(view: ImageView, imageUrl: String?) {
         .load(imageUri)
         .placeholder(R.drawable.ic_baseline_cloud_queue_24)
         .into(view)
+}
+
+@BindingAdapter("bindFavouriteIcon")
+fun bindFavouriteIcon(view: ShapeableImageView, isFavourite: Boolean) {
+    if (isFavourite) {
+        view.setImageResource(R.drawable.ic_baseline_favorite_24)
+    } else {
+        view.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+    }
 }
 
 @SuppressLint("SimpleDateFormat")

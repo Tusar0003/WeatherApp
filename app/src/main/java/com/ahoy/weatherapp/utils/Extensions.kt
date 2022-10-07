@@ -78,6 +78,8 @@ fun Fragment.openSettings() {
 
 fun Context.toastLong(resId: Int) = Toast.makeText(this, resId, Toast.LENGTH_LONG).show()
 
+fun Context.toastLong(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
 val Context.layoutInflater: LayoutInflater
     get() = LayoutInflater.from(this)
 

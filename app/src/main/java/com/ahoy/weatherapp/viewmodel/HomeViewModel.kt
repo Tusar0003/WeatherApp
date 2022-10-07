@@ -1,6 +1,5 @@
 package com.ahoy.weatherapp.viewmodel
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahoy.weatherapp.api.Result
@@ -17,8 +16,6 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 
@@ -32,17 +29,17 @@ class HomeViewModel @Inject constructor(
     private val _message = Channel<String>(Channel.CONFLATED)
     val message = _message.receiveAsFlow()
 
-    val currentLatLng = MutableSharedFlow<String>(
+    private val currentLatLng = MutableSharedFlow<String>(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    val forecastDetailsPayload = MutableSharedFlow<ForecastDetailsPayload>(
+    private val forecastDetailsPayload = MutableSharedFlow<ForecastDetailsPayload>(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    val weatherDetailsResponse = currentLatLng.flatMapLatest {
+    private val weatherDetailsResponse = currentLatLng.flatMapLatest {
         loadWeatherDetailsUseCase(it)
     }.stateIn(
         scope = viewModelScope,
@@ -84,6 +81,12 @@ class HomeViewModel @Inject constructor(
                     _message.trySend(it.message.toString())
                 }
             }
+        }
+    }
+
+    fun setCurrentLatLng(latLng: String) {
+        if (currentLatLng.replayCache.isEmpty()) {
+            currentLatLng.tryEmit(latLng)
         }
     }
 }

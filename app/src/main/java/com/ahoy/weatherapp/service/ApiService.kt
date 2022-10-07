@@ -3,6 +3,7 @@ package com.ahoy.weatherapp.service
 import com.ahoy.weatherapp.api.ApiResponse
 import com.ahoy.weatherapp.model.CurrentWeatherDetails
 import com.ahoy.weatherapp.model.ForecastDetails
+import com.ahoy.weatherapp.model.Search
 import com.google.gson.JsonObject
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.Body
@@ -24,4 +25,10 @@ interface ApiService {
         @Query("q") query: String,
         @Query("days") days: Int,
     ) : Flow<ApiResponse<ForecastDetails>>
+
+    @GET("search.json")
+    fun fetchSearchList(
+        @Query("key") key: String,
+        @Query("q") query: String,
+    ) : Flow<ApiResponse<List<Search>>>
 }
