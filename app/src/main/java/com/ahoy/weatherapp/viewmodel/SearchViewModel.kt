@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahoy.weatherapp.api.Result
 import com.ahoy.weatherapp.api.Status
+import com.ahoy.weatherapp.db.entity.FavouriteCity
 import com.ahoy.weatherapp.domain.LoadSearchListUseCase
+import com.ahoy.weatherapp.domain.SaveFavouriteCityUseCase
 import com.ahoy.weatherapp.model.Search
 import com.ahoy.weatherapp.utils.WhileViewSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val loadSearchListUseCase: LoadSearchListUseCase,
+    private val saveFavouriteCityUseCase: SaveFavouriteCityUseCase,
 ) : ViewModel() {
 
     private val _message = Channel<String>(Channel.CONFLATED)
@@ -42,6 +45,19 @@ class SearchViewModel @Inject constructor(
         scope = viewModelScope,
         started = WhileViewSubscribed,
         initialValue = Result.nothing()
+    )
+
+    private val saveFavouriteCity = MutableSharedFlow<FavouriteCity>(
+        replay = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+
+    val saveFavouriteCityResponse = saveFavouriteCity.flatMapLatest {
+        saveFavouriteCityUseCase(it)
+    }.stateIn(
+        scope = viewModelScope,
+        started = WhileViewSubscribed,
+        initialValue = null
     )
 
     var searchList = MutableStateFlow<List<Search>>(
@@ -71,6 +87,14 @@ class SearchViewModel @Inject constructor(
                 }
             }
         }
+
+        viewModelScope.launch {
+            saveFavouriteCityResponse.collect {
+                if (it == true) {
+                    _toastMessage.trySend("City is marked and saved as favourite.")
+                }
+            }
+        }
     }
 
     fun onClickFavourite(search: Search) {
@@ -79,8 +103,7 @@ class SearchViewModel @Inject constructor(
 
         oldList.remove(searchItem)
         val updatedIsFavourite = !search.isFavourite
-
-        val newList = oldList + Search(
+        val newSearchItem = Search(
             searchItem.id,
             searchItem.name,
             searchItem.region,
@@ -91,7 +114,23 @@ class SearchViewModel @Inject constructor(
             updatedIsFavourite,
         )
 
+        val newList = oldList + newSearchItem
+
         searchList.tryEmit(newList)
-        _toastMessage.trySend("${search.name} is marked as favourite.")
+        saveFavouriteCity(newSearchItem)
+    }
+
+    private fun saveFavouriteCity(newSearchItem: Search) {
+        viewModelScope.launch {
+            saveFavouriteCity.tryEmit(
+                FavouriteCity(
+                    id = newSearchItem.id!!,
+                    city = newSearchItem.name!!,
+                    country = newSearchItem.country!!,
+                    lat = newSearchItem.lat!!,
+                    lon = newSearchItem.lon!!,
+                )
+            )
+        }
     }
 }

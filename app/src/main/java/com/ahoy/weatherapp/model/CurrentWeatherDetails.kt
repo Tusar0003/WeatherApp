@@ -2,6 +2,7 @@ package com.ahoy.weatherapp.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.io.Serializable
 
 
 @JsonClass(generateAdapter = true)
@@ -10,7 +11,7 @@ data class CurrentWeatherDetails(
     var location: Location? = Location(),
     @Json(name = "current")
     var current: Current? = Current(),
-)
+) : Serializable
 
 data class Location(
     @Json(name = "name")
@@ -46,7 +47,7 @@ data class Current(
     @Json(name = "last_updated")
     var lastUpdated: String? = null,
     @Json(name = "temp_c")
-    var tempC: Int? = null,
+    var tempC: Double? = null,
     @Json(name = "temp_f")
     var tempF: Double? = null,
     @Json(name = "is_day")

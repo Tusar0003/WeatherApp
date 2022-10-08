@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.CityDetailsFragment">
+
+    <data>
+        <variable
+            name="weatherDetails"
+            type="com.ahoy.weatherapp.model.CurrentWeatherDetails" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/_16sdp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottom_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/_16sdp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/_16sdp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/_16sdp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/weather_status_image_view"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:scaleType="fitXY"
+            android:tint="@color/sky_blue_dark"
+            app:loadImage="@{weatherDetails.current.condition.icon}"
+            tools:src="@drawable/ic_baseline_cloud_queue_48"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintTop_toTopOf="@id/top_guideline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/weather_status_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@{weatherDetails.current.condition.text}"
+            tools:text="Partly Cloudy"
+            style="@style/MediumBoldBlackTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/weather_status_image_view"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/temperature_label_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/current_temp_label"
+            tools:text="Current Temp:"
+            style="@style/MediumNormalBlackTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/weather_status_text_view"
+            app:layout_constraintStart_toStartOf="@id/start_guideline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/temperature_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@{@string/temp_format(weatherDetails.current.tempC.toString())}"
+            tools:text="33c"
+            style="@style/MediumBoldBlackTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/weather_status_text_view"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/feels_like_label_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/feels_like_label"
+            tools:text="Feels Like:"
+            style="@style/MediumNormalBlackTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/temperature_label_text_view"
+            app:layout_constraintStart_toStartOf="@id/start_guideline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/feels_like_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@{@string/temp_format(weatherDetails.current.feelslikeC.toString())}"
+            tools:text="33c"
+            style="@style/MediumBoldBlackTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/temperature_label_text_view"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/humidity_label_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/humidity_label"
+            tools:text="Humidity:"
+            style="@style/MediumNormalBlackTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/feels_like_label_text_view"
+            app:layout_constraintStart_toStartOf="@id/start_guideline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/humidity_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@{@string/humidity_format(weatherDetails.current.humidity.toString())}"
+            tools:text="23 kmp"
+            style="@style/MediumBoldBlackTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/feels_like_label_text_view"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/wind_label_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/wind_label"
+            tools:text="Wind:"
+            style="@style/MediumNormalBlackTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/humidity_label_text_view"
+            app:layout_constraintStart_toStartOf="@id/start_guideline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/wind_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@{@string/wind_format(weatherDetails.current.windKph.toString())}"
+            tools:text="33 kmp"
+            style="@style/MediumBoldBlackTextStyle"
+            app:layout_constraintTop_toBottomOf="@id/humidity_label_text_view"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/cancel_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:src="@drawable/ic_baseline_cancel_24"
+            style="?android:attr/borderlessButtonStyle"
+            app:layout_constraintTop_toBottomOf="@id/wind_label_text_view"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

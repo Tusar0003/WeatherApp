@@ -77,6 +77,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                         R.id.menu_search -> {
                             navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
                         }
+                        R.id.menu_favourite -> {
+                            navigate(HomeFragmentDirections.actionHomeFragmentToFavouriteFragment())
+                        }
                     }
 
                     return@setOnMenuItemClickListener true

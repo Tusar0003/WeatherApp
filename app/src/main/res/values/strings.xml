@@ -29,4 +29,9 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="favourite">Favourite</string>
+    <string name="favourite_cites">Favourite Cites</string>
+    <string name="current_temp_label">Current Temp:</string>
+    <string name="feels_like_label">Feels Like:</string>
+    <string name="humidity_label">Humidity:</string>
+    <string name="wind_label">Wind:</string>
 </resources>

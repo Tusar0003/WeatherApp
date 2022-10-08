@@ -109,4 +109,14 @@ dependencies {
 
     // Location
     implementation("com.google.android.gms:play-services-location:20.0.0")
+
+    // Database
+    def roomVersion = "2.4.2"
+    def sqlcipherVersion = "4.4.3"
+    def datastoreVersion = "1.0.0"
+    kapt( "androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation( "androidx.room:room-runtime:$roomVersion")
+    implementation( "net.zetetic:android-database-sqlcipher:$sqlcipherVersion")
+    implementation( "androidx.datastore:datastore-preferences:$datastoreVersion")
 }
