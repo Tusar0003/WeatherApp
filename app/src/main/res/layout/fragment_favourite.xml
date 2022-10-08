@@ -7,6 +7,8 @@
     <data>
         <import type="com.ahoy.weatherapp.api.Result" />
 
+        <import type="com.ahoy.weatherapp.api.Status" />
+
         <variable
             name="viewModel"
             type="com.ahoy.weatherapp.viewmodel.FavouriteViewModel" />
@@ -47,6 +49,19 @@
                 app:favouriteCityList="@{viewModel.favouriteCityList}"
                 tools:itemCount="1"
                 tools:listitem="@layout/layout_favourite_city_item"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16sdp"
+                android:textAlignment="center"
+                android:text="@string/no_favourite_city_found"
+                app:goneUnless="@{viewModel.isVisible}"
+                style="@style/SmallNormalGreyTextStyle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

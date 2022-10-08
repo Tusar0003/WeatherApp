@@ -1,5 +1,6 @@
 package com.ahoy.weatherapp.di
 
+import android.content.Context
 import com.ahoy.weatherapp.service.ApiService
 import com.ahoy.weatherapp.utils.FlowCallAdapterFactory
 import com.squareup.moshi.Moshi
@@ -7,15 +8,15 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import okhttp3.HttpUrl
+import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrl
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -38,11 +39,34 @@ class ApiModule {
 
     @Singleton
     @Provides
+    @Named("cacheInterceptor")
+    fun provideCacheInterceptor() = Interceptor { chain ->
+        val response = chain.proceed(chain.request())
+        val cacheControl = CacheControl.Builder()
+            .maxAge(5, TimeUnit.MINUTES)
+            .build()
+        response.newBuilder()
+            .header("Cache-Control", cacheControl.toString())
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCache(@ApplicationContext context: Context): Cache {
+        val cacheSize = 10 * 1024 * 1024 // 10 MB
+        val httpCacheDirectory = File(context.cacheDir, "http-cache")
+        return Cache(httpCacheDirectory, cacheSize.toLong())
+    }
+
+    @Singleton
+    @Provides
     fun provideMoshi(): Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
     @Provides
     @Singleton
     fun provideOkHttpClient(
+        cache: Cache,
+        @Named("cacheInterceptor") cacheInterceptor: Interceptor,
         loggingInterceptor: Interceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
@@ -52,6 +76,8 @@ class ApiModule {
             .readTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
+            .cache(cache)
+            .addNetworkInterceptor(cacheInterceptor)
             .build()
     }
 

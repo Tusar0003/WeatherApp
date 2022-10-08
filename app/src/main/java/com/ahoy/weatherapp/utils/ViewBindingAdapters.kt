@@ -7,11 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.ahoy.weatherapp.R
-import com.ahoy.weatherapp.model.Search
+import com.ahoy.weatherapp.db.entity.FavouriteCity
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 @BindingAdapter("goneUnless")

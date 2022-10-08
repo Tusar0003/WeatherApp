@@ -52,7 +52,7 @@ class SearchViewModel @Inject constructor(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    val saveFavouriteCityResponse = saveFavouriteCity.flatMapLatest {
+    private val saveFavouriteCityResponse = saveFavouriteCity.flatMapLatest {
         saveFavouriteCityUseCase(it)
     }.stateIn(
         scope = viewModelScope,
@@ -63,11 +63,12 @@ class SearchViewModel @Inject constructor(
     var searchList = MutableStateFlow<List<Search>>(
         mutableListOf()
     )
+    var isVisible = MutableStateFlow<Boolean>(true)
 
     init {
         viewModelScope.launch {
             searchText.collect {
-                delay(2000)
+                delay(1000)
                 if (it.isNotEmpty()) {
                     searchString.tryEmit(it)
                 }
@@ -78,8 +79,10 @@ class SearchViewModel @Inject constructor(
             searchListResponse.collect {
                 if (it.status == Status.SUCCESS) {
                     if (it.data!!.isEmpty()) {
+                        isVisible.tryEmit(true)
                         _toastMessage.trySend("No city found!")
                     } else {
+                        isVisible.tryEmit(false)
                         searchList.tryEmit(it.data)
                     }
                 } else if (it.status == Status.ERROR) {

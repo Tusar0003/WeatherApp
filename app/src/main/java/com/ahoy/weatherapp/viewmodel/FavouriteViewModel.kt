@@ -5,10 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.ahoy.weatherapp.api.Result
 import com.ahoy.weatherapp.api.Status
 import com.ahoy.weatherapp.db.entity.FavouriteCity
+import com.ahoy.weatherapp.domain.LoadCityDetailsUseCase
 import com.ahoy.weatherapp.domain.LoadFavouriteCityUseCase
-import com.ahoy.weatherapp.domain.LoadWeatherDetailsUseCase
 import com.ahoy.weatherapp.model.CurrentWeatherDetails
-import com.ahoy.weatherapp.model.Search
 import com.ahoy.weatherapp.utils.WhileViewSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavouriteViewModel @Inject constructor(
     private val loadFavouriteCityUseCase: LoadFavouriteCityUseCase,
-    private val loadWeatherDetailsUseCase: LoadWeatherDetailsUseCase
+    private val loadCityDetailsUseCase: LoadCityDetailsUseCase
 ) : ViewModel() {
 
     private val _message = Channel<String>(Channel.CONFLATED)
@@ -51,7 +50,7 @@ class FavouriteViewModel @Inject constructor(
     )
 
     val weatherDetailsResponse = currentLatLng.flatMapLatest {
-        loadWeatherDetailsUseCase(it)
+        loadCityDetailsUseCase(it)
     }.stateIn(
         scope = viewModelScope,
         started = WhileViewSubscribed,
@@ -61,8 +60,21 @@ class FavouriteViewModel @Inject constructor(
     var weatherDetails = MutableStateFlow<CurrentWeatherDetails>(
         CurrentWeatherDetails()
     )
+    var isVisible = MutableStateFlow<Boolean>(true)
 
     init {
+        viewModelScope.launch {
+            favouriteCityList.collect { list ->
+                list?.let {
+                    if (it.isEmpty()) {
+                        isVisible.tryEmit(true)
+                    } else {
+                        isVisible.tryEmit(false)
+                    }
+                }
+            }
+        }
+
         viewModelScope.launch {
             weatherDetailsResponse.collect {
                 if (it.status == Status.SUCCESS) {
