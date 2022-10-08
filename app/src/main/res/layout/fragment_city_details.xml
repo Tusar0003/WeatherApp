@@ -44,8 +44,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/weather_status_image_view"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
             android:scaleType="fitXY"
             android:tint="@color/sky_blue_dark"
             app:loadImage="@{weatherDetails.current.condition.icon}"

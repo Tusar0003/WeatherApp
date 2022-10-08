@@ -34,6 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         locationUtils = LocationUtils(requireActivity())
+        RemindersManager.startReminder(requireActivity())
 
         launchAndRepeatWithViewLifecycle {
             launch {
