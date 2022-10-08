@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@{weatherDetails.current.condition.text}"
             tools:text="Partly Cloudy"
-            style="@style/MediumBoldBlackTextStyle"
+            style="@style/LargeBoldBlackTextStyle"
             app:layout_constraintTop_toBottomOf="@id/weather_status_image_view"
             app:layout_constraintStart_toStartOf="@id/start_guideline"
             app:layout_constraintEnd_toEndOf="@id/end_guideline" />

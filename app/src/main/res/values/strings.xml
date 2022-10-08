@@ -21,11 +21,6 @@
     <string name="gps_not_available_text">GPS service is not available.</string>
     <string name="location_tracking_failed_text">Location tracking failed.</string>
     <string name="location_tracking_success_text">Location captured successfully.</string>
-
-    <string name="temp_format">%1$s \u2103</string>
-    <string name="feels_like_format">Feels like %1$s \u2103</string>
-    <string name="wind_format">Wind %1$s km</string>
-    <string name="humidity_format">Humidity %1$s km</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="favourite">Favourite</string>
@@ -34,4 +29,12 @@
     <string name="feels_like_label">Feels Like:</string>
     <string name="humidity_label">Humidity:</string>
     <string name="wind_label">Wind:</string>
+
+    <string name="temp_format">%1$s \u2103</string>
+    <string name="feels_like_format">Feels like %1$s \u2103</string>
+    <string name="wind_format_with_label">Wind %1$s km</string>
+    <string name="humidity_format_with_label">Humidity %1$s km</string>
+    <string name="wind_format">%1$s km</string>
+    <string name="humidity_format">%1$s km</string>
+    <string name="weather_reports">Weather Reports</string>
 </resources>

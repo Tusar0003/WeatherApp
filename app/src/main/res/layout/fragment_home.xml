@@ -26,7 +26,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                app:title="@string/app_name"
+                app:title="@string/weather_reports"
                 app:menu="@menu/home_menu"
                 app:popupTheme="@style/MyAppTheme.PopupOverlay" />
         </com.google.android.material.appbar.AppBarLayout>
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="@{@string/wind_format(viewModel.weatherDetails.current.windKph.toString())}"
+                    android:text="@{@string/wind_format_with_label(viewModel.weatherDetails.current.windKph.toString())}"
                     tools:text="Wind 40 km"
                     style="@style/SmallNormalWhiteTextStyle"
                     app:layout_constraintTop_toBottomOf="@id/feels_like_text_view"
@@ -158,7 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="@{@string/humidity_format(viewModel.weatherDetails.current.humidity.toString())}"
+                    android:text="@{@string/humidity_format_with_label(viewModel.weatherDetails.current.humidity.toString())}"
                     tools:text="Humidity 40 km"
                     style="@style/SmallNormalWhiteTextStyle"
                     app:layout_constraintTop_toBottomOf="@id/wind_text_view"
